@@ -54,11 +54,11 @@ public class CustomersUI extends javax.swing.JPanel {
         rSTableMetro1 = new rojerusan.RSTableMetro();
         jPanel3 = new javax.swing.JPanel();
         searchByName = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        searchByNameText = new javax.swing.JLabel();
         saveCustomer = new ui.components.Button();
         delete = new ui.components.Button();
         update = new ui.components.Button();
-        jLabel1 = new javax.swing.JLabel();
+        headerPanel = new javax.swing.JLabel();
 
         setLayout(new java.awt.BorderLayout());
 
@@ -105,8 +105,8 @@ public class CustomersUI extends javax.swing.JPanel {
             }
         });
 
-        jLabel2.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
-        jLabel2.setText("Search by Name:");
+        searchByNameText.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
+        searchByNameText.setText("Search by Name:");
 
         saveCustomer.setBackground(new java.awt.Color(255, 0, 51));
         saveCustomer.setForeground(new java.awt.Color(255, 255, 255));
@@ -147,7 +147,7 @@ public class CustomersUI extends javax.swing.JPanel {
                 .addGap(6, 6, 6)
                 .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, 70, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(57, 57, 57)
-                .addComponent(jLabel2, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(searchByNameText, javax.swing.GroupLayout.PREFERRED_SIZE, 145, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(searchByName, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(14, 14, 14))
@@ -160,18 +160,18 @@ public class CustomersUI extends javax.swing.JPanel {
                     .addComponent(saveCustomer, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(delete, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(update, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel2)
+                    .addComponent(searchByNameText)
                     .addComponent(searchByName, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(31, 31, 31))
         );
 
         jPanel2.add(jPanel3, java.awt.BorderLayout.PAGE_END);
 
-        jLabel1.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(255, 0, 51));
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Customer Information");
-        jPanel2.add(jLabel1, java.awt.BorderLayout.PAGE_START);
+        headerPanel.setFont(new java.awt.Font("Liberation Sans", 1, 18)); // NOI18N
+        headerPanel.setForeground(new java.awt.Color(255, 0, 51));
+        headerPanel.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        headerPanel.setText("Customer Information");
+        jPanel2.add(headerPanel, java.awt.BorderLayout.PAGE_START);
 
         add(jPanel2, java.awt.BorderLayout.CENTER);
     }// </editor-fold>//GEN-END:initComponents
@@ -239,8 +239,6 @@ public class CustomersUI extends javax.swing.JPanel {
         updateSearchResults(); //dynamic search
     }//GEN-LAST:event_searchByNameKeyReleased
 
-    private CustomerDTO initialCustomerData = null;
-    
     private void updateSearchResults() {
         String searchText = searchByName.getText();
         Response res = POSFactory.getInstanceOfResponse();
@@ -265,9 +263,7 @@ public class CustomersUI extends javax.swing.JPanel {
         int rowIndex = rSTableMetro1.getSelectedRow();
 
         if (rowIndex != -1) {
-            initialCustomerData = this.customersList.get(rowIndex);
-//            nameField.setText(c.getName());
-//            phoneNoField.setText(c.getPhoneNumber());
+            // do sth
         } else {
             // Handle the case where no row is selected
             // You might want to clear or handle the fields accordingly
@@ -278,14 +274,14 @@ public class CustomersUI extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private ui.components.Button delete;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel headerPanel;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
     private rojerusan.RSTableMetro rSTableMetro1;
     private ui.components.Button saveCustomer;
     private javax.swing.JTextField searchByName;
+    private javax.swing.JLabel searchByNameText;
     private ui.components.Button update;
     // End of variables declaration//GEN-END:variables
 }

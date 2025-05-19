@@ -107,7 +107,7 @@
                       <EmptySpace min="6" pref="6" max="-2" attributes="0"/>
                       <Component id="update" min="-2" pref="70" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="57" max="-2" attributes="0"/>
-                      <Component id="jLabel2" min="-2" pref="145" max="-2" attributes="0"/>
+                      <Component id="searchByNameText" min="-2" pref="145" max="-2" attributes="0"/>
                       <EmptySpace type="unrelated" max="-2" attributes="0"/>
                       <Component id="searchByName" min="-2" pref="130" max="-2" attributes="0"/>
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
@@ -122,7 +122,7 @@
                           <Component id="saveCustomer" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="delete" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="update" alignment="3" min="-2" max="-2" attributes="0"/>
-                          <Component id="jLabel2" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="searchByNameText" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="searchByName" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="31" max="-2" attributes="0"/>
@@ -141,7 +141,7 @@
                 <EventHandler event="keyReleased" listener="java.awt.event.KeyListener" parameters="java.awt.event.KeyEvent" handler="searchByNameKeyReleased"/>
               </Events>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel2">
+            <Component class="javax.swing.JLabel" name="searchByNameText">
               <Properties>
                 <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
                   <Font name="Liberation Sans" size="18" style="0"/>
@@ -193,7 +193,7 @@
             </Component>
           </SubComponents>
         </Container>
-        <Component class="javax.swing.JLabel" name="jLabel1">
+        <Component class="javax.swing.JLabel" name="headerPanel">
           <Properties>
             <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
               <Font name="Liberation Sans" size="18" style="1"/>

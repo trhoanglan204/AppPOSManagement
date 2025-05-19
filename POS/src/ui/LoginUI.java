@@ -16,11 +16,10 @@ public class LoginUI extends javax.swing.JFrame {
      * Creates new form LoginUI
      */
     public LoginUI() {
-    this.controller=POSFactory.getInstanceOfPOSController();
+        this.controller=POSFactory.getInstanceOfPOSController();
         initComponents();
         this.setLocationRelativeTo(null);
         GlassPanePopup.install(this);
-        
     }
 
     /**
@@ -32,8 +31,8 @@ public class LoginUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         PanelMain = new javax.swing.JPanel();
+        PanelLayout = new javax.swing.JPanel();
         usernameField = new javax.swing.JTextField();
         passwordField = new javax.swing.JPasswordField();
         passwdText = new javax.swing.JLabel();
@@ -44,9 +43,9 @@ public class LoginUI extends javax.swing.JFrame {
         icon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Point of Sale System V 0.1 by CodeCrood");
+        setTitle("Hệ thống bán hàng - Học viện Kỹ thuật Mật mã");
 
-        jPanel1.setLayout(new java.awt.BorderLayout());
+        PanelMain.setLayout(new java.awt.BorderLayout());
 
         usernameField.setForeground(new java.awt.Color(255, 0, 51));
         usernameField.addKeyListener(new java.awt.event.KeyAdapter() {
@@ -78,34 +77,34 @@ public class LoginUI extends javax.swing.JFrame {
             }
         });
 
-        javax.swing.GroupLayout PanelMainLayout = new javax.swing.GroupLayout(PanelMain);
-        PanelMain.setLayout(PanelMainLayout);
-        PanelMainLayout.setHorizontalGroup(
-            PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelMainLayout.createSequentialGroup()
+        javax.swing.GroupLayout PanelLayoutLayout = new javax.swing.GroupLayout(PanelLayout);
+        PanelLayout.setLayout(PanelLayoutLayout);
+        PanelLayoutLayout.setHorizontalGroup(
+            PanelLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelLayoutLayout.createSequentialGroup()
                 .addGap(77, 77, 77)
-                .addGroup(PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(userText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE)
                     .addComponent(passwdText, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 139, Short.MAX_VALUE))
                 .addGap(47, 47, 47)
-                .addGroup(PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(usernameField, javax.swing.GroupLayout.DEFAULT_SIZE, 104, Short.MAX_VALUE)
                     .addComponent(passwordField))
                 .addGap(69, 69, 69))
-            .addGroup(PanelMainLayout.createSequentialGroup()
+            .addGroup(PanelLayoutLayout.createSequentialGroup()
                 .addGap(153, 153, 153)
                 .addComponent(loginBTN, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-        PanelMainLayout.setVerticalGroup(
-            PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(PanelMainLayout.createSequentialGroup()
+        PanelLayoutLayout.setVerticalGroup(
+            PanelLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(PanelLayoutLayout.createSequentialGroup()
                 .addGap(62, 62, 62)
-                .addGroup(PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                .addGroup(PanelLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(usernameField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(userText))
                 .addGap(18, 18, 18)
-                .addGroup(PanelMainLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGroup(PanelLayoutLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(passwordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(passwdText))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 27, Short.MAX_VALUE)
@@ -113,7 +112,7 @@ public class LoginUI extends javax.swing.JFrame {
                 .addGap(28, 28, 28))
         );
 
-        jPanel1.add(PanelMain, java.awt.BorderLayout.CENTER);
+        PanelMain.add(PanelLayout, java.awt.BorderLayout.CENTER);
 
         PanelTitle.setBackground(new java.awt.Color(255, 51, 51));
         PanelTitle.setForeground(new java.awt.Color(255, 255, 255));
@@ -149,20 +148,20 @@ public class LoginUI extends javax.swing.JFrame {
                 .addContainerGap())
         );
 
-        jPanel1.add(PanelTitle, java.awt.BorderLayout.PAGE_START);
+        PanelMain.add(PanelTitle, java.awt.BorderLayout.PAGE_START);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(PanelMain, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addGap(0, 0, 0))
         );
 
@@ -170,64 +169,62 @@ public class LoginUI extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void loginBTNActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginBTNActionPerformed
+        HandleLogin();
+    }//GEN-LAST:event_loginBTNActionPerformed
+
+    private void HandleLogin(){
         UserDTO user = new UserDTO();
         user.setUsername(usernameField.getText());
         user.setPassword(new String(passwordField.getPassword()));
-
+        if (user.getUsername().length() > 50 || user.getPassword().length() > 50) {
+            GlassPanePopup.showPopup(new MessageUI("Username or password too long.", MessageType.Error));
+            return;
+        }
         Response responseObj = POSFactory.getInstanceOfResponse();
         this.controller.verifyUser(user, responseObj);
         
         if(responseObj.isSuccessfull()){
-            JFrame dashboard=new Dashboard(this.controller);
+            JFrame dashboard = new DashboardUI(this.controller);
             dashboard.setVisible(true);
             POSController.objApplicationSession.setCurrentScreen(dashboard);
             this.dispose();
         }else{
             passwordField.setText("");
             GlassPanePopup.showPopup(new MessageUI(responseObj.getErrorMessages(),MessageType.Error));
-        
         }
-    }//GEN-LAST:event_loginBTNActionPerformed
-
+    }
+    
     private void passwordFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            if (!usernameField.getText().isEmpty() && passwordField.getPassword().length > 0){
-                loginBTNActionPerformed(null);
-            }
-            else{
-                passwordField.setText("");
-                Response res = new Response();
-                res.messagesList.add(new Message("Please enter both username and password.",MessageType.Error));
-                CommonHandler.handleResponse(res);
-            }
-        }
+        tryLoginOnEnter(evt);
     }//GEN-LAST:event_passwordFieldKeyPressed
 
     private void usernameFieldKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameFieldKeyPressed
-        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER){
-            if (!usernameField.getText().isEmpty() && passwordField.getPassword().length > 0){
+        tryLoginOnEnter(evt);
+    }//GEN-LAST:event_usernameFieldKeyPressed
+
+    private void tryLoginOnEnter(java.awt.event.KeyEvent evt) {
+        if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
+            if (!usernameField.getText().isEmpty() && passwordField.getPassword().length > 0) {
                 loginBTNActionPerformed(null);
-            }
-            else{
+            } else {
                 passwordField.setText("");
                 Response res = new Response();
-                res.messagesList.add(new Message("Please enter both username and password.",MessageType.Error));
+                res.messagesList.add(new Message("Please enter both username and password.", MessageType.Error));
                 CommonHandler.handleResponse(res);
             }
         }
-    }//GEN-LAST:event_usernameFieldKeyPressed
-
+    }
+    
     /**
      * @param args the command line arguments
      */
    
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPanel PanelLayout;
     private javax.swing.JPanel PanelMain;
     private javax.swing.JPanel PanelTitle;
     private javax.swing.JLabel TitleText;
     private javax.swing.JLabel icon;
-    private javax.swing.JPanel jPanel1;
     private ui.components.Button loginBTN;
     private javax.swing.JLabel passwdText;
     private javax.swing.JPasswordField passwordField;

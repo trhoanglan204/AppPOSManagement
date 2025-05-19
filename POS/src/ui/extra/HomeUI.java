@@ -1,106 +1,44 @@
 package ui.extra;
 
-import com.formdev.flatlaf.FlatLightLaf;
 import model.POSController;
-import java.awt.BorderLayout;
-import java.awt.Color;
-import java.awt.Graphics;
-import java.awt.Graphics2D;
-import java.awt.RenderingHints;
+import java.awt.*;
+import java.awt.event.FocusEvent;
 import java.awt.geom.RoundRectangle2D;
 import java.util.ArrayList;
-import javax.swing.UIManager;
-import javax.swing.event.ListSelectionEvent;
-import javax.swing.event.ListSelectionListener;
+import javax.swing.JFrame;
+import javax.swing.event.*;
 import javax.swing.table.DefaultTableModel;
 import model.POSFactory;
-import model.dto.Response;
-import model.dto.UserDTO;
-import org.jfree.chart.ChartFactory;
-import org.jfree.chart.ChartPanel;
-import org.jfree.chart.JFreeChart;
-import org.jfree.chart.plot.CategoryPlot;
-import org.jfree.chart.plot.PiePlot;
-import org.jfree.chart.plot.PlotOrientation;
-import org.jfree.chart.plot.XYPlot;
+import model.dto.*;
+import org.jfree.chart.*;
+import org.jfree.chart.plot.*;
 import org.jfree.chart.renderer.category.BarRenderer;
 import org.jfree.data.category.DefaultCategoryDataset;
 import org.jfree.data.general.DefaultPieDataset;
 import org.jfree.data.statistics.HistogramDataset;
 import raven.glasspanepopup.GlassPanePopup;
+import ui.DashboardUI;
 
 public final class HomeUI extends javax.swing.JFrame {
 
-    POSController controller;
+    private POSController controller;
+    private FocusEvent evt;
 
-    /**
-     * Creates new form HomeUI
-     */
-    public HomeUI() {
-        GlassPanePopup.install(this);
-        controller = POSFactory.getInstanceOfPOSController();
+    public HomeUI(POSController controller) {
+        this.controller = controller;
         initComponents();
-        showHistogram();
-        showPieChart();
-        showBarChart();
-         paintComponent( this.getGraphics());
-        getData();
-        rSTableMetro1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
-            @Override
-            public void valueChanged(ListSelectionEvent e) {
-                if (!e.getValueIsAdjusting()) {
-                    handleRowSelection();
-                }
-            }
-        });
-    }
-
-    private void handleRowSelection() {
-        // Get the selected row indices
-        int selectedRow = rSTableMetro1.getSelectedRow();
-
-        // Get the table model
-        DefaultTableModel tableModel = (DefaultTableModel) rSTableMetro1.getModel();
-
-        // Iterate through the selected rows and display data
         
-            String username = (String) tableModel.getValueAt(selectedRow, 0);
-            String role = (String) tableModel.getValueAt(selectedRow, 1);
-
-            // Perform actions with the selected data (e.g., display in a dialog)
-            System.out.println("Selected Row: Username = " + username + ", Role = " + role);
+        setExtendedState(JFrame.MAXIMIZED_BOTH); // Set the JFrame to full size
+        setResizable(false); // Make the JFrame non-resizable
+        mainPanel.removeAll();
+        mainPanel.add(new KPI_UI(this.controller), BorderLayout.CENTER);
+        ContributeToggleButtonFocusGained(this.evt);
+        mainPanel.validate();
         
+        GlassPanePopup.install(this);
+        this.setMinimumSize(this.getSize());
     }
-
-    protected void paintComponent(Graphics graphics){
-        Graphics2D g2=(Graphics2D)graphics.create();
-        g2.setRenderingHint(RenderingHints.KEY_ANTIALIASING, RenderingHints.VALUE_ANTIALIAS_ON);
-        g2.setBackground(getBackground());
-        g2.fill(new RoundRectangle2D.Double(0,0,getWidth(),getHeight(),15,15));
-        g2.dispose();
-               
-    }
-
-    public void getData() {
-        Response res = POSFactory.getInstanceOfResponse();
-        ArrayList<UserDTO> users = controller.getUsers(res);
-
-        // Define column names
-        String[] columnNames = {"Username", "Role"};
-
-        // Create DefaultTableModel with specified column names
-        DefaultTableModel defaultTableModel = new DefaultTableModel(null, columnNames);
-
-        // Iterate through the ArrayList and add data to the table model
-        for (UserDTO user : users) {
-            Object[] rowData = {user.getUsername(), user.getRole()};
-            defaultTableModel.addRow(rowData);
-        }
-
-        // Set the created model to the rSTableMetro1 table
-        rSTableMetro1.setModel(defaultTableModel);
-    }
-
+    
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -110,105 +48,125 @@ public final class HomeUI extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
+        mainPanel = new javax.swing.JPanel();
+        BackLableBtn = new javax.swing.JLabel();
+        HeaderTitle = new javax.swing.JLabel();
+        sidebarPanel = new javax.swing.JPanel();
         jPanel3 = new javax.swing.JPanel();
-        jToggleButton1 = new javax.swing.JToggleButton();
+        ContributeToggleButton = new javax.swing.JToggleButton();
+        SettingToggleButton = new javax.swing.JToggleButton();
         histogramPanel = new javax.swing.JPanel();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        rSTableMetro1 = new rojerusan.RSTableMetro();
         panelBarChart = new javax.swing.JPanel();
         barChartPanel = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Point of Sale");
-        setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
+        setUndecorated(true);
+        setResizable(false);
 
-        jPanel1.setBackground(new java.awt.Color(255, 0, 51));
-        jPanel1.setPreferredSize(new java.awt.Dimension(1366, 60));
+        BackLableBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/back-angle-arrow.png"))); // NOI18N
+        BackLableBtn.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                BackLableBtnMouseClicked(evt);
+            }
+        });
 
-        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/icons8_menu_48px_1.png"))); // NOI18N
+        HeaderTitle.setBackground(new java.awt.Color(255, 255, 255));
+        HeaderTitle.setFont(new java.awt.Font("SansSerif", 0, 26)); // NOI18N
+        HeaderTitle.setForeground(new java.awt.Color(255, 255, 255));
+        HeaderTitle.setText("Information");
 
-        jLabel2.setFont(new java.awt.Font("SansSerif", 0, 45)); // NOI18N
-        jLabel2.setText("I");
-
-        jLabel4.setBackground(new java.awt.Color(255, 255, 255));
-        jLabel4.setFont(new java.awt.Font("SansSerif", 0, 26)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(255, 255, 255));
-        jLabel4.setText("Point of Sale");
-
-        javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
-        jPanel1.setLayout(jPanel1Layout);
-        jPanel1Layout.setHorizontalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(jLabel2)
-                .addGap(12, 12, 12)
-                .addComponent(jLabel4)
-                .addGap(0, 1123, Short.MAX_VALUE))
+        javax.swing.GroupLayout mainPanelLayout = new javax.swing.GroupLayout(mainPanel);
+        mainPanel.setLayout(mainPanelLayout);
+        mainPanelLayout.setHorizontalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
+                .addGap(35, 35, 35)
+                .addComponent(BackLableBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 55, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
+                .addComponent(HeaderTitle)
+                .addGap(0, 1131, Short.MAX_VALUE))
         );
-        jPanel1Layout.setVerticalGroup(
-            jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
+        mainPanelLayout.setVerticalGroup(
+            mainPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(mainPanelLayout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
+                .addComponent(BackLableBtn)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 0, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addComponent(jLabel4)
-                        .addGap(11, 11, 11))
-                    .addComponent(jLabel2, javax.swing.GroupLayout.Alignment.TRAILING)))
+            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, mainPanelLayout.createSequentialGroup()
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(HeaderTitle)
+                .addContainerGap())
         );
 
-        jPanel2.setBackground(new java.awt.Color(51, 51, 51));
-        jPanel2.setPreferredSize(new java.awt.Dimension(200, 720));
+        sidebarPanel.setBackground(new java.awt.Color(51, 51, 51));
+        sidebarPanel.setPreferredSize(new java.awt.Dimension(200, 720));
 
         jPanel3.setBackground(new java.awt.Color(0, 0, 0));
-
-        jToggleButton1.setBackground(new java.awt.Color(0, 0, 0));
-        jToggleButton1.setForeground(new java.awt.Color(255, 255, 255));
-        jToggleButton1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/account_24px.png"))); // NOI18N
-        jToggleButton1.setText("Sales");
-        jToggleButton1.setBorder(null);
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
         jPanel3Layout.setHorizontalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 243, Short.MAX_VALUE)
         );
         jPanel3Layout.setVerticalGroup(
             jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel3Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jToggleButton1, javax.swing.GroupLayout.DEFAULT_SIZE, 54, Short.MAX_VALUE)
-                .addContainerGap())
+            .addGap(0, 66, Short.MAX_VALUE)
         );
 
-        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
-        jPanel2.setLayout(jPanel2Layout);
-        jPanel2Layout.setHorizontalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        ContributeToggleButton.setBackground(new java.awt.Color(0, 0, 0));
+        ContributeToggleButton.setForeground(new java.awt.Color(255, 255, 255));
+        ContributeToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/account_24px.png"))); // NOI18N
+        ContributeToggleButton.setText("KPI");
+        ContributeToggleButton.setBorder(null);
+        ContributeToggleButton.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                ContributeToggleButtonFocusGained(evt);
+            }
+        });
+        ContributeToggleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ContributeToggleButtonActionPerformed(evt);
+            }
+        });
+
+        SettingToggleButton.setBackground(new java.awt.Color(0, 0, 0));
+        SettingToggleButton.setForeground(new java.awt.Color(255, 255, 255));
+        SettingToggleButton.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/settings-icon.png"))); // NOI18N
+        SettingToggleButton.setText("Setting");
+        SettingToggleButton.setBorder(null);
+        SettingToggleButton.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SettingToggleButtonFocusGained(evt);
+            }
+        });
+        SettingToggleButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingToggleButtonActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
+        sidebarPanel.setLayout(sidebarPanelLayout);
+        sidebarPanelLayout.setHorizontalGroup(
+            sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+            .addGroup(sidebarPanelLayout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(ContributeToggleButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE)
+                    .addComponent(SettingToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 223, Short.MAX_VALUE))
+                .addContainerGap())
         );
-        jPanel2Layout.setVerticalGroup(
-            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel2Layout.createSequentialGroup()
+        sidebarPanelLayout.setVerticalGroup(
+            sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(sidebarPanelLayout.createSequentialGroup()
                 .addComponent(jPanel3, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(573, 573, 573))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(ContributeToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 44, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
+                .addComponent(SettingToggleButton, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+                .addGap(453, 453, 453))
         );
 
         histogramPanel.setBackground(new java.awt.Color(0, 102, 102));
@@ -216,198 +174,100 @@ public final class HomeUI extends javax.swing.JFrame {
         histogramPanel.setOpaque(false);
         histogramPanel.setLayout(new java.awt.BorderLayout());
 
-        rSTableMetro1.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-
-            },
-            new String [] {
-                "Username", "Role"
-            }
-        ));
-        rSTableMetro1.setColorBackgoundHead(new java.awt.Color(255, 0, 51));
-        rSTableMetro1.setColorFilasForeground1(new java.awt.Color(255, 0, 51));
-        rSTableMetro1.setColorFilasForeground2(new java.awt.Color(255, 0, 51));
-        rSTableMetro1.setColorSelBackgound(new java.awt.Color(255, 0, 51));
-        jScrollPane1.setViewportView(rSTableMetro1);
-
-        histogramPanel.add(jScrollPane1, java.awt.BorderLayout.CENTER);
-
         panelBarChart.setBackground(new java.awt.Color(102, 102, 102));
         panelBarChart.setLayout(new java.awt.BorderLayout());
 
         barChartPanel.setForeground(new java.awt.Color(0, 153, 153));
         barChartPanel.setLayout(new java.awt.BorderLayout());
 
-        jButton1.setText("Delete User");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
-            }
-        });
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+            .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(81, 81, 81)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(histogramPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
-                    .addGroup(layout.createSequentialGroup()
-                        .addGap(200, 200, 200)
-                        .addComponent(jButton1)))
+                .addComponent(sidebarPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 243, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addGap(288, 288, 288)
-                        .addComponent(barChartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(56, 56, 56))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
-                        .addComponent(panelBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(158, 158, 158))))
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 666, Short.MAX_VALUE)
+                        .addComponent(barChartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 440, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(layout.createSequentialGroup()
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 711, Short.MAX_VALUE)
+                        .addComponent(panelBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, 395, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(histogramPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 326, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(722, 722, 722))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
-                .addComponent(jPanel1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(mainPanel, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(layout.createSequentialGroup()
-                        .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
+                        .addComponent(sidebarPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 642, Short.MAX_VALUE)
                         .addGap(11, 11, 11))
                     .addGroup(layout.createSequentialGroup()
                         .addGap(20, 20, 20)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(layout.createSequentialGroup()
-                                .addGap(48, 48, 48)
-                                .addComponent(panelBarChart, javax.swing.GroupLayout.PREFERRED_SIZE, 270, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addGap(38, 38, 38)
-                                .addComponent(barChartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE))
-                            .addGroup(layout.createSequentialGroup()
-                                .addComponent(histogramPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 280, Short.MAX_VALUE)
-                                .addGap(329, 329, 329)
-                                .addComponent(jButton1)))))
+                            .addComponent(panelBarChart, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(histogramPanel, javax.swing.GroupLayout.DEFAULT_SIZE, 290, Short.MAX_VALUE))
+                        .addGap(93, 93, 93)
+                        .addComponent(barChartPanel, javax.swing.GroupLayout.PREFERRED_SIZE, 250, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addGap(10, 10, 10))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+    private void ContributeToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContributeToggleButtonActionPerformed
         // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new KPI_UI(this.controller),BorderLayout.CENTER);
+        mainPanel.validate();
+    }//GEN-LAST:event_ContributeToggleButtonActionPerformed
 
-    }//GEN-LAST:event_jButton1ActionPerformed
+    private void SettingToggleButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingToggleButtonActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new UserUI(this.controller), BorderLayout.CENTER);
+        mainPanel.validate();
+    }//GEN-LAST:event_SettingToggleButtonActionPerformed
 
-    /**
-     * @param args the command line arguments
-     */
-    public static void main(String args[]) {
-        try {
-            UIManager.setLookAndFeel(new FlatLightLaf());
-        } catch (Exception e) {
+    private void SettingToggleButtonFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SettingToggleButtonFocusGained
+        // TODO add your handling code here:
+        allBtnFocusLost();
+        SettingToggleButton.setBackground(Color.ORANGE);
+    }//GEN-LAST:event_SettingToggleButtonFocusGained
 
-        }
+    private void ContributeToggleButtonFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ContributeToggleButtonFocusGained
+        // TODO add your handling code here:
+        allBtnFocusLost();
+        ContributeToggleButton.setBackground(Color.ORANGE);
+    }//GEN-LAST:event_ContributeToggleButtonFocusGained
 
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new HomeUI().setVisible(true);
-            }
-        });
-    }
-
-    public void showPieChart() {
-
-        //create dataset
-        DefaultPieDataset barDataset = new DefaultPieDataset();
-        barDataset.setValue("Ghee", new Double(20));
-        barDataset.setValue("Chawal", new Double(20));
-        barDataset.setValue("Lobya", new Double(40));
-        barDataset.setValue("Chini", new Double(10));
-
-        //create chart
-        JFreeChart piechart = ChartFactory.createPieChart("Sales sales", barDataset, false, true, false);//explain
-
-        PiePlot piePlot = (PiePlot) piechart.getPlot();
-
-        //changing pie chart blocks colors
-        piePlot.setSectionPaint("Ghee", new Color(255, 255, 102));
-        piePlot.setSectionPaint("Chawal", new Color(102, 255, 102));
-        piePlot.setSectionPaint("Lobya", new Color(255, 102, 153));
-        piePlot.setSectionPaint("Chini", new Color(0, 204, 204));
-
-        piePlot.setBackgroundPaint(Color.white);
-
-        //create chartPanel to display chart(graph)
-        ChartPanel barChartPanel = new ChartPanel(piechart);
-        panelBarChart.removeAll();
-        panelBarChart.add(barChartPanel, BorderLayout.CENTER);
-        panelBarChart.validate();
-    }
-
-    public void showBarChart() {
-        DefaultCategoryDataset dataset = new DefaultCategoryDataset();
-        dataset.setValue(200, "Amount", "january");
-        dataset.setValue(150, "Amount", "february");
-        dataset.setValue(18, "Amount", "march");
-        dataset.setValue(100, "Amount", "april");
-        dataset.setValue(80, "Amount", "may");
-        dataset.setValue(250, "Amount", "june");
-
-        JFreeChart chart = ChartFactory.createBarChart("contribution", "monthly", "amount",
-                dataset, PlotOrientation.VERTICAL, false, true, false);
-
-        CategoryPlot categoryPlot = chart.getCategoryPlot();
-        //categoryPlot.setRangeGridlinePaint(Color.BLUE);
-        categoryPlot.setBackgroundPaint(Color.WHITE);
-        BarRenderer renderer = (BarRenderer) categoryPlot.getRenderer();
-        Color clr3 = new Color(204, 0, 51);
-        renderer.setSeriesPaint(0, clr3);
-
-        ChartPanel barpChartPanel = new ChartPanel(chart);
-        barChartPanel.removeAll();
-        barChartPanel.add(barpChartPanel, BorderLayout.CENTER);
-        barChartPanel.validate();
-
-    }
-
-    public final void showHistogram() {
-
-        double[] values = {95, 49, 14, 59, 50, 66, 47, 40, 1, 67,
-            12, 58, 28, 63, 14, 9, 31, 17, 94, 71,
-            49, 64, 73, 97, 15, 63, 10, 12, 31, 62,
-            93, 49, 74, 90, 59, 14, 15, 88, 26, 57,
-            77, 44, 58, 91, 10, 67, 57, 19, 88, 84
-        };
-
-        HistogramDataset dataset = new HistogramDataset();
-        dataset.addSeries("key", values, 20);
-
-        JFreeChart chart = ChartFactory.createHistogram("JFreeChart Histogram", "Data", "Frequency", dataset, PlotOrientation.VERTICAL, false, true, false);
-        XYPlot plot = chart.getXYPlot();
-        plot.setBackgroundPaint(Color.white);
-
-        ChartPanel barpChartPanel2 = new ChartPanel(chart);
-//        barpChartPanel2.setDisplayToolTips(true);
-        histogramPanel.removeAll();
-        histogramPanel.add(barpChartPanel2, BorderLayout.CENTER);
-        histogramPanel.validate();
+    private void BackLableBtnMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_BackLableBtnMouseClicked
+        // TODO add your handling code here:
+        JFrame dashboard = new DashboardUI(this.controller);
+        dashboard.setVisible(true);
+        POSController.objApplicationSession.setCurrentScreen(dashboard);
+        this.dispose();
+    }//GEN-LAST:event_BackLableBtnMouseClicked
+    
+    private void allBtnFocusLost(){
+        ContributeToggleButton.setBackground(new Color(255, 0, 51));        
+        SettingToggleButton.setBackground(new Color(255, 0, 51));
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel BackLableBtn;
+    private javax.swing.JToggleButton ContributeToggleButton;
+    private javax.swing.JLabel HeaderTitle;
+    private javax.swing.JToggleButton SettingToggleButton;
     private javax.swing.JPanel barChartPanel;
     private javax.swing.JPanel histogramPanel;
-    private javax.swing.JButton jButton1;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel4;
-    private javax.swing.JPanel jPanel1;
-    private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
-    private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JToggleButton jToggleButton1;
+    private javax.swing.JPanel mainPanel;
     private javax.swing.JPanel panelBarChart;
-    private rojerusan.RSTableMetro rSTableMetro1;
+    private javax.swing.JPanel sidebarPanel;
     // End of variables declaration//GEN-END:variables
 }

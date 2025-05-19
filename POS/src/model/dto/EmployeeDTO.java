@@ -14,8 +14,6 @@ public class EmployeeDTO {
     public EmployeeDTO() {
     }
     
-    
-
     public int getId() {
         return id;
     }
@@ -39,6 +37,4 @@ public class EmployeeDTO {
     public void setPhoneNumber(String phoneNumber) {
         this.phoneNumber = phoneNumber;
     }
-    
-    
 }
