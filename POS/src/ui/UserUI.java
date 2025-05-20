@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ui.extra;
+package ui;
 
 import javax.swing.JFrame;
 import java.awt.*;
@@ -39,14 +39,8 @@ public class UserUI extends javax.swing.JPanel {
             rSTableMetro1.setVisible(true);
             saveUserBtn.setVisible(true);
             deleteBtn.setVisible(true);
-        }
-        else{
-            rSTableMetro1.setVisible(false);
-            saveUserBtn.setVisible(false);
-            deleteBtn.setVisible(false);
-        }
-        populateData();
-        rSTableMetro1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
+            populateData();
+            rSTableMetro1.getSelectionModel().addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 if (!e.getValueIsAdjusting()) {
@@ -54,6 +48,13 @@ public class UserUI extends javax.swing.JPanel {
                 }
             }
         });
+        }
+        else{
+            rSTableMetro1.setVisible(false);
+            saveUserBtn.setVisible(false);
+            deleteBtn.setVisible(false);
+        }
+
     }
 
     private void handleRowSelection() {
@@ -100,7 +101,7 @@ public class UserUI extends javax.swing.JPanel {
         curUsername = new javax.swing.JLabel();
         curPassword = new javax.swing.JLabel();
         newPaswdText = new javax.swing.JLabel();
-        jPasswordField1 = new javax.swing.JPasswordField();
+        PasswordField = new javax.swing.JPasswordField();
         usernameField = new javax.swing.JTextField();
         passwordField = new javax.swing.JTextField();
 
@@ -151,7 +152,12 @@ public class UserUI extends javax.swing.JPanel {
 
         newPaswdText.setText("New Password");
 
-        jPasswordField1.setText("jPasswordField1");
+        PasswordField.setText("jPasswordField1");
+        PasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                PasswordFieldMouseClicked(evt);
+            }
+        });
 
         usernameField.setText("username");
         usernameField.addActionListener(new java.awt.event.ActionListener() {
@@ -160,7 +166,6 @@ public class UserUI extends javax.swing.JPanel {
             }
         });
 
-        passwordField.setText("paswd");
         passwordField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 passwordFieldActionPerformed(evt);
@@ -184,7 +189,7 @@ public class UserUI extends javax.swing.JPanel {
                             .addComponent(curPassword))
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(jPasswordField1)
+                            .addComponent(PasswordField)
                             .addComponent(usernameField)
                             .addComponent(passwordField)))
                     .addComponent(newPaswdText))
@@ -217,7 +222,7 @@ public class UserUI extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(newPaswdText)
-                            .addComponent(jPasswordField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -286,12 +291,17 @@ public class UserUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameFieldActionPerformed
 
+    private void PasswordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PasswordFieldMouseClicked
+        // TODO add your handling code here:
+        PasswordField.setText("");
+    }//GEN-LAST:event_PasswordFieldMouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JPasswordField PasswordField;
     private javax.swing.JLabel curPassword;
     private javax.swing.JLabel curUsername;
     private ui.components.Button deleteBtn;
-    private javax.swing.JPasswordField jPasswordField1;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JLabel newPaswdText;
     private javax.swing.JTextField passwordField;

@@ -4,7 +4,6 @@ import model.POSController;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.JFrame;
-import ui.extra.HomeUI;
 import raven.glasspanepopup.GlassPanePopup;
 
 public class DashboardUI extends javax.swing.JFrame {
@@ -47,9 +46,12 @@ public class DashboardUI extends javax.swing.JFrame {
         invoiceBtn = new javax.swing.JButton();
         saleBtn = new javax.swing.JButton();
         categoryBtn = new javax.swing.JButton();
+        ContributeBtn = new javax.swing.JButton();
+        SettingBtn = new javax.swing.JButton();
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("POS Dashboard v0.1 2024 CodeCrood");
         setUndecorated(true);
         setResizable(false);
 
@@ -75,11 +77,6 @@ public class DashboardUI extends javax.swing.JFrame {
         username.setForeground(new java.awt.Color(255, 255, 255));
         username.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/male_user_25px.png"))); // NOI18N
         username.setText("username");
-        username.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                usernameMouseClicked(evt);
-            }
-        });
 
         close.setFont(new java.awt.Font("Liberation Sans", 0, 18)); // NOI18N
         close.setForeground(new java.awt.Color(255, 255, 255));
@@ -114,13 +111,12 @@ public class DashboardUI extends javax.swing.JFrame {
             headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(headerPanelLayout.createSequentialGroup()
                 .addGroup(headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(headerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addGroup(headerPanelLayout.createSequentialGroup()
-                            .addGap(16, 16, 16)
-                            .addComponent(jLabel2))
-                        .addGroup(headerPanelLayout.createSequentialGroup()
-                            .addContainerGap()
-                            .addComponent(Menu)))
+                    .addGroup(headerPanelLayout.createSequentialGroup()
+                        .addGap(16, 16, 16)
+                        .addComponent(jLabel2))
+                    .addGroup(headerPanelLayout.createSequentialGroup()
+                        .addContainerGap()
+                        .addComponent(Menu))
                     .addGroup(headerPanelLayout.createSequentialGroup()
                         .addComponent(close)
                         .addGap(11, 11, 11)
@@ -254,6 +250,36 @@ public class DashboardUI extends javax.swing.JFrame {
             }
         });
 
+        ContributeBtn.setBackground(new java.awt.Color(255, 0, 51));
+        ContributeBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/account_24px.png"))); // NOI18N
+        ContributeBtn.setText("KPI");
+        ContributeBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        ContributeBtn.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                ContributeBtnFocusGained(evt);
+            }
+        });
+        ContributeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ContributeBtnActionPerformed(evt);
+            }
+        });
+
+        SettingBtn.setBackground(new java.awt.Color(255, 0, 51));
+        SettingBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/icons/settings-icon.png"))); // NOI18N
+        SettingBtn.setText("Setting");
+        SettingBtn.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        SettingBtn.addFocusListener(new java.awt.event.FocusAdapter() {
+            public void focusGained(java.awt.event.FocusEvent evt) {
+                SettingBtnFocusGained(evt);
+            }
+        });
+        SettingBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SettingBtnActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout sidebarPanelLayout = new javax.swing.GroupLayout(sidebarPanel);
         sidebarPanel.setLayout(sidebarPanelLayout);
         sidebarPanelLayout.setHorizontalGroup(
@@ -261,14 +287,16 @@ public class DashboardUI extends javax.swing.JFrame {
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, sidebarPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(sidebarPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(SettingBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(categoryBtn, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(reportsBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(invoiceBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(saleBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                     .addComponent(productBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(employeeBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 211, Short.MAX_VALUE)
+                    .addComponent(employeeBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, 216, Short.MAX_VALUE)
                     .addComponent(supplierBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                    .addComponent(customerBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(customerBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                    .addComponent(ContributeBtn, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(17, 17, 17))
         );
         sidebarPanelLayout.setVerticalGroup(
@@ -290,7 +318,11 @@ public class DashboardUI extends javax.swing.JFrame {
                 .addComponent(invoiceBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(reportsBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(164, Short.MAX_VALUE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 78, Short.MAX_VALUE)
+                .addComponent(ContributeBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(SettingBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 32, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addContainerGap())
         );
 
         menuPanel.setViewportView(sidebarPanel);
@@ -322,71 +354,7 @@ public class DashboardUI extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void customerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerBtnActionPerformed
-        // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.add(new CustomersUI(this.controller), BorderLayout.CENTER);
-        mainPanel.validate();
-
-    }//GEN-LAST:event_customerBtnActionPerformed
     
-    private void supplierBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierBtnActionPerformed
-        // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.add(new SupplierUI(this.controller), BorderLayout.CENTER);
-        mainPanel.validate();
-    }//GEN-LAST:event_supplierBtnActionPerformed
-
-    private void employeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeBtnActionPerformed
-        // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.add(new EmployeeUI(this.controller), BorderLayout.CENTER);
-        mainPanel.validate();
-    }//GEN-LAST:event_employeeBtnActionPerformed
-
-    private void productBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productBtnActionPerformed
-        // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.add(new ProductUI(this.controller), BorderLayout.CENTER);
-        mainPanel.validate();
-    }//GEN-LAST:event_productBtnActionPerformed
-
-    private void saleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleBtnActionPerformed
-        // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.add(new CartUI(this.controller), BorderLayout.CENTER);
-        mainPanel.validate();
-        
-    }//GEN-LAST:event_saleBtnActionPerformed
-
-    private void invoiceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invoiceBtnActionPerformed
-        // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.add(new InvoiceUI(), BorderLayout.CENTER);
-        mainPanel.validate();
-    }//GEN-LAST:event_invoiceBtnActionPerformed
-
-    private void reportsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsBtnActionPerformed
-        // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.add(new ReportsUI(), BorderLayout.CENTER);
-        mainPanel.validate();
-    }//GEN-LAST:event_reportsBtnActionPerformed
-
-    private void customerBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_customerBtnFocusGained
-        // TODO add your handling code here:
-        allBtnFocusLost();
-        customerBtn.setBackground(Color.ORANGE);
-    }//GEN-LAST:event_customerBtnFocusGained
-
-    private void categoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryBtnActionPerformed
-        // TODO add your handling code here:
-        mainPanel.removeAll();
-        mainPanel.add(new CategoryUI(this.controller), BorderLayout.CENTER);
-        mainPanel.validate();
-    }//GEN-LAST:event_categoryBtnActionPerformed
-
     private void LogoutBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LogoutBtnActionPerformed
         // TODO add your handling code here:
         controller.expireSession();
@@ -397,30 +365,12 @@ public class DashboardUI extends javax.swing.JFrame {
         controller.expireSession();
     }//GEN-LAST:event_closeMouseClicked
 
-    private void usernameMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_usernameMouseClicked
-        JFrame home = new HomeUI(this.controller);
-        home.setVisible(true);
-        POSController.objApplicationSession.setCurrentScreen(home);
-        this.dispose();
-    }//GEN-LAST:event_usernameMouseClicked
-
-    private void supplierBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplierBtnFocusGained
+    private void categoryBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_categoryBtnActionPerformed
         // TODO add your handling code here:
-        allBtnFocusLost();
-        supplierBtn.setBackground(Color.ORANGE);
-    }//GEN-LAST:event_supplierBtnFocusGained
-
-    private void employeeBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_employeeBtnFocusGained
-        // TODO add your handling code here:
-        allBtnFocusLost();
-        employeeBtn.setBackground(Color.ORANGE);
-    }//GEN-LAST:event_employeeBtnFocusGained
-
-    private void productBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_productBtnFocusGained
-        // TODO add your handling code here:
-        allBtnFocusLost();
-        productBtn.setBackground(Color.ORANGE);
-    }//GEN-LAST:event_productBtnFocusGained
+        mainPanel.removeAll();
+        mainPanel.add(new CategoryUI(this.controller), BorderLayout.CENTER);
+        mainPanel.validate();
+    }//GEN-LAST:event_categoryBtnActionPerformed
 
     private void categoryBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_categoryBtnFocusGained
         // TODO add your handling code here:
@@ -428,11 +378,25 @@ public class DashboardUI extends javax.swing.JFrame {
         categoryBtn.setBackground(Color.ORANGE);
     }//GEN-LAST:event_categoryBtnFocusGained
 
+    private void saleBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_saleBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new CartUI(this.controller), BorderLayout.CENTER);
+        mainPanel.validate();
+    }//GEN-LAST:event_saleBtnActionPerformed
+
     private void saleBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_saleBtnFocusGained
         // TODO add your handling code here:
         allBtnFocusLost();
         saleBtn.setBackground(Color.ORANGE);
     }//GEN-LAST:event_saleBtnFocusGained
+
+    private void invoiceBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_invoiceBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new InvoiceUI(), BorderLayout.CENTER);
+        mainPanel.validate();
+    }//GEN-LAST:event_invoiceBtnActionPerformed
 
     private void invoiceBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_invoiceBtnFocusGained
         // TODO add your handling code here:
@@ -440,11 +404,96 @@ public class DashboardUI extends javax.swing.JFrame {
         invoiceBtn.setBackground(Color.ORANGE);
     }//GEN-LAST:event_invoiceBtnFocusGained
 
+    private void reportsBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_reportsBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new ReportsUI(), BorderLayout.CENTER);
+        mainPanel.validate();
+    }//GEN-LAST:event_reportsBtnActionPerformed
+
     private void reportsBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_reportsBtnFocusGained
         // TODO add your handling code here:
         allBtnFocusLost();
         reportsBtn.setBackground(Color.ORANGE);
     }//GEN-LAST:event_reportsBtnFocusGained
+
+    private void customerBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_customerBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new CustomersUI(this.controller), BorderLayout.CENTER);
+        mainPanel.validate();
+    }//GEN-LAST:event_customerBtnActionPerformed
+
+    private void customerBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_customerBtnFocusGained
+        // TODO add your handling code here:
+        allBtnFocusLost();
+        customerBtn.setBackground(Color.ORANGE);
+    }//GEN-LAST:event_customerBtnFocusGained
+
+    private void productBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_productBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new ProductUI(this.controller), BorderLayout.CENTER);
+        mainPanel.validate();
+    }//GEN-LAST:event_productBtnActionPerformed
+
+    private void productBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_productBtnFocusGained
+        // TODO add your handling code here:
+        allBtnFocusLost();
+        productBtn.setBackground(Color.ORANGE);
+    }//GEN-LAST:event_productBtnFocusGained
+
+    private void employeeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_employeeBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new EmployeeUI(this.controller), BorderLayout.CENTER);
+        mainPanel.validate();
+    }//GEN-LAST:event_employeeBtnActionPerformed
+
+    private void employeeBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_employeeBtnFocusGained
+        // TODO add your handling code here:
+        allBtnFocusLost();
+        employeeBtn.setBackground(Color.ORANGE);
+    }//GEN-LAST:event_employeeBtnFocusGained
+
+    private void supplierBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_supplierBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new SupplierUI(this.controller), BorderLayout.CENTER);
+        mainPanel.validate();
+    }//GEN-LAST:event_supplierBtnActionPerformed
+
+    private void supplierBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_supplierBtnFocusGained
+        // TODO add your handling code here:
+        allBtnFocusLost();
+        supplierBtn.setBackground(Color.ORANGE);
+    }//GEN-LAST:event_supplierBtnFocusGained
+
+    private void ContributeBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_ContributeBtnFocusGained
+        // TODO add your handling code here:
+        allBtnFocusLost();
+        ContributeBtn.setBackground(Color.ORANGE);
+    }//GEN-LAST:event_ContributeBtnFocusGained
+
+    private void ContributeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ContributeBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new KPI_UI(this.controller), BorderLayout.CENTER);
+        mainPanel.validate();
+    }//GEN-LAST:event_ContributeBtnActionPerformed
+
+    private void SettingBtnFocusGained(java.awt.event.FocusEvent evt) {//GEN-FIRST:event_SettingBtnFocusGained
+        // TODO add your handling code here:
+        allBtnFocusLost();
+        SettingBtn.setBackground(Color.ORANGE);
+    }//GEN-LAST:event_SettingBtnFocusGained
+
+    private void SettingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SettingBtnActionPerformed
+        // TODO add your handling code here:
+        mainPanel.removeAll();
+        mainPanel.add(new UserUI(this.controller), BorderLayout.CENTER);
+        mainPanel.validate();
+    }//GEN-LAST:event_SettingBtnActionPerformed
 
     private void allBtnFocusLost(){
         supplierBtn.setBackground(new Color(255, 0, 51));
@@ -455,7 +504,8 @@ public class DashboardUI extends javax.swing.JFrame {
         productBtn.setBackground(new Color(255, 0, 51));
         employeeBtn.setBackground(new Color(255, 0, 51));
         customerBtn.setBackground(new Color(255, 0, 51));
-        
+        ContributeBtn.setBackground(new Color(255, 0, 51));
+        SettingBtn.setBackground(new Color(255, 0, 51));
     }
     
     /**
@@ -463,8 +513,10 @@ public class DashboardUI extends javax.swing.JFrame {
      */
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton ContributeBtn;
     private ui.components.Button LogoutBtn;
     private javax.swing.JLabel Menu;
+    private javax.swing.JButton SettingBtn;
     private javax.swing.JButton categoryBtn;
     private javax.swing.JLabel close;
     private javax.swing.JButton customerBtn;
