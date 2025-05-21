@@ -43,7 +43,7 @@ public class LoginUI extends javax.swing.JFrame {
         icon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Hệ thống bán hàng - Học viện Kỹ thuật Mật mã");
+        setTitle("Point of Sale System V 0.1 by CodeCrood");
 
         PanelMain.setLayout(new java.awt.BorderLayout());
 
@@ -52,12 +52,18 @@ public class LoginUI extends javax.swing.JFrame {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 usernameFieldKeyPressed(evt);
             }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                usernameFieldKeyTyped(evt);
+            }
         });
 
         passwordField.setForeground(new java.awt.Color(255, 0, 51));
         passwordField.addKeyListener(new java.awt.event.KeyAdapter() {
             public void keyPressed(java.awt.event.KeyEvent evt) {
                 passwordFieldKeyPressed(evt);
+            }
+            public void keyTyped(java.awt.event.KeyEvent evt) {
+                passwordFieldKeyTyped(evt);
             }
         });
 
@@ -173,14 +179,21 @@ public class LoginUI extends javax.swing.JFrame {
     }//GEN-LAST:event_loginBTNActionPerformed
 
     private void HandleLogin(){
-        UserDTO user = new UserDTO();
-        user.setUsername(usernameField.getText());
-        user.setPassword(new String(passwordField.getPassword()));
-        if (user.getUsername().length() > 50 || user.getPassword().length() > 50) {
+        // Trim spaces & ensure input is clean
+        String username = usernameField.getText().trim();
+        String password = new String(passwordField.getPassword()).trim();
+
+        if (username.length() > 30 || password.length() > 30) {
             GlassPanePopup.showPopup(new MessageUI("Username or password too long.", MessageType.Error));
             return;
         }
+
         Response responseObj = POSFactory.getInstanceOfResponse();
+        
+        UserDTO user = new UserDTO();
+        user.setUsername(username);
+        user.setPassword(password);
+
         this.controller.verifyUser(user, responseObj);
         
         if(responseObj.isSuccessfull()){
@@ -202,19 +215,35 @@ public class LoginUI extends javax.swing.JFrame {
         tryLoginOnEnter(evt);
     }//GEN-LAST:event_usernameFieldKeyPressed
 
+    private void usernameFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_usernameFieldKeyTyped
+        // TODO add your handling code here:
+        if(evt.getKeyChar() == ' '){
+            evt.consume();
+        }
+    }//GEN-LAST:event_usernameFieldKeyTyped
+
+    private void passwordFieldKeyTyped(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_passwordFieldKeyTyped
+        // TODO add your handling code here:
+        if(evt.getKeyChar() == ' '){
+            evt.consume();
+        }
+    }//GEN-LAST:event_passwordFieldKeyTyped
+
     private void tryLoginOnEnter(java.awt.event.KeyEvent evt) {
         if (evt.getKeyCode() == java.awt.event.KeyEvent.VK_ENTER) {
-            if (!usernameField.getText().isEmpty() && passwordField.getPassword().length > 0) {
-                loginBTNActionPerformed(null);
-            } else {
+            String username = usernameField.getText().trim();
+            String password = new String(passwordField.getPassword()).trim();
+            if (username.isEmpty() || password.isEmpty()) {
                 passwordField.setText("");
                 Response res = new Response();
                 res.messagesList.add(new Message("Please enter both username and password.", MessageType.Error));
                 CommonHandler.handleResponse(res);
+                return;
             }
+            HandleLogin(); // Call login directly
         }
     }
-    
+
     /**
      * @param args the command line arguments
      */

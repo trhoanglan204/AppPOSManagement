@@ -179,7 +179,6 @@ public class POSController implements IPOSController {
             dalManagerObj.saveEmployee(employee, response);
         }
         return response;
-
     }
 
     @Override
@@ -187,7 +186,6 @@ public class POSController implements IPOSController {
         Response response = POSFactory.getInstanceOfResponse();
         dalManagerObj.updateEmployee(employee, response);
         return response;
-
     }
 
     @Override
@@ -195,14 +193,11 @@ public class POSController implements IPOSController {
         Response response = POSFactory.getInstanceOfResponse();
         dalManagerObj.deleteEmployee(employee, response);
         return response;
-
     }
 
     @Override
     public ArrayList<EmployeeDTO> getEmployees(Response res) {
-
         return dalManagerObj.getEmployees(res);
-
     }
 
     @Override
@@ -248,7 +243,6 @@ public class POSController implements IPOSController {
             dalManagerObj.deleteCategory(category, response);
         }
         return response;
-    
     }
 
     @Override

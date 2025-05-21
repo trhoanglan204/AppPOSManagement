@@ -14,6 +14,7 @@ import javax.swing.table.DefaultTableModel;
 import model.POSController;
 import model.POSFactory;
 import model.dto.*;
+import model.dto.UserDTO.SD_Role;
 import ui.components.AddUpdateUserDialog;
 import ui.components.CommonHandler;
 
@@ -35,7 +36,8 @@ public class UserUI extends javax.swing.JPanel {
         this.controller = controller;
         this.currentUser = POSController.objApplicationSession.getUser();
         usernameField.setText(this.currentUser.getUsername());
-        if (currentUser.getRole().equals("admin")){
+        usernameField.setFocusable(false); //can't edit username
+        if (currentUser.getRole().equals(SD_Role.Admin)){
             rSTableMetro1.setVisible(true);
             saveUserBtn.setVisible(true);
             deleteBtn.setVisible(true);
@@ -47,24 +49,23 @@ public class UserUI extends javax.swing.JPanel {
                     handleRowSelection();
                 }
             }
-        });
+            });
         }
         else{
             rSTableMetro1.setVisible(false);
             saveUserBtn.setVisible(false);
             deleteBtn.setVisible(false);
         }
-
     }
-
+    
     private void handleRowSelection() {
         // Get the selected row indices
         int selectedRow = rSTableMetro1.getSelectedRow();
         if (selectedRow != -1){
-            
+            usernameField.setText(usersList.get(selectedRow).getUsername());
         }
         else{
-        
+        //do nothing
         }
     }
     
@@ -74,7 +75,12 @@ public class UserUI extends javax.swing.JPanel {
 
         String[] columnNames = {"Username", "Role"};
 
-        DefaultTableModel defaultTableModel = new DefaultTableModel(null, columnNames);
+        DefaultTableModel defaultTableModel = new DefaultTableModel(null, columnNames){
+            @Override
+            public boolean isCellEditable(int row, int column){
+                return column != 0;
+            }
+        };
 
         for (UserDTO user : usersList) {
             Object[] rowData = {user.getUsername(), user.getRole()};
@@ -101,7 +107,7 @@ public class UserUI extends javax.swing.JPanel {
         curUsername = new javax.swing.JLabel();
         curPassword = new javax.swing.JLabel();
         newPaswdText = new javax.swing.JLabel();
-        PasswordField = new javax.swing.JPasswordField();
+        NewPasswordField = new javax.swing.JPasswordField();
         usernameField = new javax.swing.JTextField();
         passwordField = new javax.swing.JTextField();
 
@@ -152,10 +158,10 @@ public class UserUI extends javax.swing.JPanel {
 
         newPaswdText.setText("New Password");
 
-        PasswordField.setText("jPasswordField1");
-        PasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
+        NewPasswordField.setText("jPasswordField1");
+        NewPasswordField.addMouseListener(new java.awt.event.MouseAdapter() {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
-                PasswordFieldMouseClicked(evt);
+                NewPasswordFieldMouseClicked(evt);
             }
         });
 
@@ -189,7 +195,7 @@ public class UserUI extends javax.swing.JPanel {
                             .addComponent(curPassword))
                         .addGap(31, 31, 31)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                            .addComponent(PasswordField)
+                            .addComponent(NewPasswordField)
                             .addComponent(usernameField)
                             .addComponent(passwordField)))
                     .addComponent(newPaswdText))
@@ -222,7 +228,7 @@ public class UserUI extends javax.swing.JPanel {
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(newPaswdText)
-                            .addComponent(PasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                            .addComponent(NewPasswordField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))))
                 .addContainerGap(13, Short.MAX_VALUE))
         );
     }// </editor-fold>//GEN-END:initComponents
@@ -263,24 +269,47 @@ public class UserUI extends javax.swing.JPanel {
     }//GEN-LAST:event_deleteBtnActionPerformed
 
     private void updateBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateBtnActionPerformed
-        int rowIndex = rSTableMetro1.getSelectedRow();
-        if (rowIndex == -1){
-            Response res = new Response();
-            res.messagesList.add(new Message("Please select a user to edit.",MessageType.Error));
-            CommonHandler.handleResponse(res);
-            return;
-        }
-        UserDTO usr = this.usersList.get(rowIndex);
+        if (currentUser.getRole().equals(SD_Role.Admin)){
+            int rowIndex = rSTableMetro1.getSelectedRow();
+            if (rowIndex == -1){
+                Response res = new Response();
+                res.messagesList.add(new Message("Please select a user to edit.",MessageType.Error));
+                CommonHandler.handleResponse(res);
+                return;
+            }
+            UserDTO usr = this.usersList.get(rowIndex);
 
-        usr.setUsername((String)rSTableMetro1.getValueAt(rowIndex, 0));
-        usr.setRole((String) rSTableMetro1.getValueAt(rowIndex, 1));
+            usr.setUsername((String)rSTableMetro1.getValueAt(rowIndex, 0));
+            usr.setRole((String) rSTableMetro1.getValueAt(rowIndex, 1));
+            usr.setPassword(NewPasswordField.toString());
 
-        Response response = new Response();
-        this.controller.updatePassword(usr, response);
-        if (response.isSuccessfull()) {
-            populateData();
+            Response response = new Response();
+            this.controller.updatePassword(usr, response);
+            if (response.isSuccessfull()) {
+                populateData();
+            }
+            CommonHandler.handleResponse(response);
         }
-        CommonHandler.handleResponse(response);
+        else{
+            String tempPassword = passwordField.getText();
+            String currentPassword = currentUser.getPassword().toString();
+            Response response = new Response();
+            if (tempPassword.equals(currentPassword)){
+                response.messagesList.add(new Message("Old password doesn't match",MessageType.Error));
+                CommonHandler.handleResponse(response);
+                return;
+            }
+            String newPassword = NewPasswordField.getPassword().toString();
+            UserDTO updateUser = new UserDTO();
+            updateUser.setPassword(newPassword);
+            updateUser.setUsername(currentUser.getUsername());
+            updateUser.setRole(currentUser.getRole());
+            this.controller.updatePassword(currentUser, response);
+            if (response.isSuccessfull()) {
+                populateData();
+            }
+            CommonHandler.handleResponse(response);
+        }
     }//GEN-LAST:event_updateBtnActionPerformed
 
     private void passwordFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordFieldActionPerformed
@@ -291,14 +320,14 @@ public class UserUI extends javax.swing.JPanel {
         // TODO add your handling code here:
     }//GEN-LAST:event_usernameFieldActionPerformed
 
-    private void PasswordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_PasswordFieldMouseClicked
+    private void NewPasswordFieldMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_NewPasswordFieldMouseClicked
         // TODO add your handling code here:
-        PasswordField.setText("");
-    }//GEN-LAST:event_PasswordFieldMouseClicked
+        NewPasswordField.setText("");
+    }//GEN-LAST:event_NewPasswordFieldMouseClicked
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JPasswordField PasswordField;
+    private javax.swing.JPasswordField NewPasswordField;
     private javax.swing.JLabel curPassword;
     private javax.swing.JLabel curUsername;
     private ui.components.Button deleteBtn;

@@ -44,5 +44,13 @@ public class UserDTO implements Serializable {
     public String toString() {
         return "UserDTO{" + "username=" + username + ", password=" + password + ", role=" + role + '}';
     }
+    
+    public static class SD_Role{
+        public static final String Admin = "admin";
+        public static final String Cashier = "cashier";
+        public static String[] getAllRoles(){
+            return new String[]{Admin, Cashier};
+        }
+    }
 
 }

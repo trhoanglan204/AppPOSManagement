@@ -742,6 +742,7 @@ public class CartUI extends javax.swing.JPanel {
             PendingAmountPanel.setText(String.format("%.2f", change));
             QR qrFrame = new QR(qrContent);
             qrFrame.setVisible(true);
+            //TODO: remove item after pay
         }
         catch (NumberFormatException e) {
             e.printStackTrace();

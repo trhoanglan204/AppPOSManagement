@@ -14,8 +14,8 @@ It offers a user-friendly interface for managing sales transactions, inventory, 
 - **Sales Management**: Ability to process sales transactions, including adding items, applying discounts, and generating invoices.
 - **Inventory Management**: Keep track of available stock, add new items, update quantities, and remove items when sold.
 - **Customer Management**: Maintain a database of customer information for loyalty programs and personalized services.
-- **QR Barcode Generating**: Generate dynamic QR code base on context  
-- **Reporting**: Generate reports on sales performance, inventory levels, and customer analytics.
+- **QR Barcode Generating**: Generate dynamic QR code base on context 
+- **Update Password**: Allow user to update password (validate old password first) & allow admin to create user, update any user password (without validate)
 
 ## Technologies Used
 

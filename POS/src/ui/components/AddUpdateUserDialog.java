@@ -3,10 +3,12 @@ package ui.components;
 import javax.swing.*;
 import java.awt.*;
 import model.dto.UserDTO;
+import model.dto.UserDTO.SD_Role;
 
 public class AddUpdateUserDialog extends JDialog{
     private JTextField nameField;
-    private JTextField roleField;
+    private JComboBox<String> roleField;
+    private JPasswordField passwordField;
     private UserDTO user;
     private boolean isSaveClicked = false; //track save btn was click
     
@@ -21,6 +23,7 @@ public class AddUpdateUserDialog extends JDialog{
         setLayout(new BorderLayout());
         JPanel panel = new JPanel();
         panel.setLayout(new GridLayout(3,2,10,10));
+        
         panel.add(new JLabel("Name"));
         nameField = new JTextField();
         if(user.getUsername()!= null){
@@ -28,11 +31,17 @@ public class AddUpdateUserDialog extends JDialog{
         }
         panel.add(nameField);
         
-        panel.add(new JLabel("Role"));
-        roleField = new JTextField();
-        if(user.getRole()!= null){
-            roleField.setText(user.getRole());
+        panel.add(new JLabel("Password"));
+        passwordField = new JPasswordField();
+        if(user.getUsername()!= null){
+            passwordField.setText(user.getPassword());//prepopulate if editing
         }
+        panel.add(passwordField);
+        
+        
+        panel.add(new JLabel("Role"));
+        roleField = new JComboBox<String>(SD_Role.getAllRoles());
+        roleField.setSelectedItem(SD_Role.Cashier); //default
         panel.add(roleField);
         
         add(panel, BorderLayout.CENTER);
@@ -53,7 +62,8 @@ public class AddUpdateUserDialog extends JDialog{
     
     public void onSave(){
         user.setUsername(nameField.getText());
-        user.setRole(roleField.getText());
+        user.setRole(roleField.getSelectedItem().toString());
+        user.setPassword(new String(passwordField.getPassword()));
         
         isSaveClicked = true;
         dispose();
