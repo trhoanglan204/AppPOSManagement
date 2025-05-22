@@ -43,7 +43,7 @@ public class LoginUI extends javax.swing.JFrame {
         icon = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("Point of Sale System V 0.1 by CodeCrood");
+        setTitle("Point of Sale System KMA");
 
         PanelMain.setLayout(new java.awt.BorderLayout());
 

@@ -1,5 +1,7 @@
 # Java Project
 ## Members
+- AT19N0101 Nguyễn Thị Hồng Anh
+- AT19N0119 Nguyễn Anh Khôi
 - AT19N0123 Trương Hoàng Lân
 - AT19N0138 Trương Văn Thiệu
 ## About
@@ -48,6 +50,7 @@ It offers a user-friendly interface for managing sales transactions, inventory, 
 ## Usage
 
 1. **Login**: Enter your credentials to access the system.
+> admin:root | cashier:root
 
 2. **Navigate**: Use the menu options to navigate between different sections such as sales, inventory, and customers.
 

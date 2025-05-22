@@ -51,7 +51,7 @@ public class DashboardUI extends javax.swing.JFrame {
         mainPanel = new javax.swing.JPanel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("POS Dashboard v0.1 2024 CodeCrood");
+        setTitle("POS Dashboard KMA");
         setUndecorated(true);
         setResizable(false);
 
